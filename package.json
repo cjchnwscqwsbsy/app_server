@@ -1,0 +1,24 @@
+{
+  "name": "app_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjchnwscqwsbsy/app_server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cjchnwscqwsbsy/app_server/issues"
+  },
+  "homepage": "https://github.com/cjchnwscqwsbsy/app_server#readme",
+  "devDependencies": {
+
+  }
+}
