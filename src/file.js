@@ -1,5 +1,10 @@
 import FS from "fs";
 
 export const readFile = () => {
-    return FS.readFileSync(process.cwd() + '/mock/test.json');
+    return new Promise((resolve,reject) => {
+        FS.readFile(process.cwd() + '/mock/test.json',(err,data) => {
+            if (err) throw err;
+            resolve(data);
+        });
+    });
 };

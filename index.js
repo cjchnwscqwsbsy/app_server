@@ -1,18 +1,25 @@
 import Koa from 'koa';
 import Router from 'koa-router';
+import Cors from 'koa2-cors';
 import BodyParser from 'koa-bodyparser';
 import {readFile} from './src/file';
 
 const app = new Koa();
 const router = new Router({prefix:'/xrk'});  //添加前缀
 
+app.use(Cors({
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization', 'Date'],
+    maxAge: 100,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Custom-Header', 'anonymous'],
+}));
+
 app.use(BodyParser());
-
-
 
 router.get('/home',async (ctx,next) => {
     ctx.response.type='application/json;charset=utf-8';
-    ctx.response.body=readFile();
+    await readFile().then(ret => ctx.response.body = ret);
 });
 
 app.use(router.routes()).use(router.allowedMethods()); //启动路由
