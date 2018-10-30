@@ -18,8 +18,12 @@ app.use(Cors({
 app.use(BodyParser());
 
 router.get('/home',async (ctx,next) => {
-    ctx.response.type='application/json;charset=utf-8';
-    await readFile().then(ret => ctx.response.body = ret);
+    try {
+        ctx.response.type='application/json;charset=utf-8';
+        ctx.response.body = await readFile();
+    }catch(err){
+        console.log(err);
+    }
 });
 
 app.use(router.routes()).use(router.allowedMethods()); //启动路由
