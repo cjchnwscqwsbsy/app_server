@@ -1,28 +1,20 @@
-const http = require('http');
-const url = require('url');
-const fs = require('fs');
+import Koa from 'koa';
+import Router from 'koa-router';
+import BodyParser from 'koa-bodyparser';
+import {readFile} from './src/file';
 
-const readFile = () => {
-    return fs.readFileSync(process.cwd() + '/mock/test.json');
-};
+const app = new Koa();
+const router = new Router({prefix:'/xrk'});  //添加前缀
 
-http.createServer(function (request, response) {
-    const method = request.method.toUpperCase();
-    const pathname = url.parse(request.url,true).pathname;
-    if (method === 'GET') {
-        let result = {};
-        switch(pathname){
-            case '/test':
-                result = readFile();
-                break;
-            default :
-                result = JSON.stringify({status:false,data:null});
-                break;
-        }
-        response.writeHead(200, {'Content-Type': 'text/plain;charset=UTF8'});
-        response.end(result);
-    }
-}).listen(9090);
+app.use(BodyParser());
 
-console.log('Server running at http://127.0.0.1:9090/');
 
+
+router.get('/home',async (ctx,next) => {
+    ctx.response.type='application/json;charset=utf-8';
+    ctx.response.body=readFile();
+});
+
+app.use(router.routes()).use(router.allowedMethods()); //启动路由
+app.listen(9000);
+console.log('app started at port 9000...');
