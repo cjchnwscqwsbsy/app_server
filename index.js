@@ -17,15 +17,24 @@ app.use(Cors({
 
 app.use(BodyParser());
 
+router.get('/navmenu',async (ctx,next) => {
+  try {
+    ctx.response.type='application/json;charset=utf-8';
+    ctx.response.body = await readFile('navmenu');
+  }catch(err){
+    console.log(err);
+  }
+});
+
 router.get('/home',async (ctx,next) => {
     try {
         ctx.response.type='application/json;charset=utf-8';
-        ctx.response.body = await readFile();
+        ctx.response.body = await readFile('test');
     }catch(err){
         console.log(err);
     }
 });
 
 app.use(router.routes()).use(router.allowedMethods()); //启动路由
-app.listen(9000);
-console.log('app started at port 9000...');
+app.listen(9090);
+console.log('app started at port 9090...');

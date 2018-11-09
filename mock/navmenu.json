@@ -1,0 +1,13 @@
+{
+  "name":"导航菜单",
+  "menuList":[{
+    "name":"首页",
+    "link":"/"
+  },{
+    "name":"快捷菜单",
+    "link":"/DashBoard/MenuShort"
+  },{
+    "name":"公告",
+    "link":"/DashBoard/PublicVersion"
+  }]
+}
